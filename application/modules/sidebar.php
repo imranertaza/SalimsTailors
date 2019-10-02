@@ -17,9 +17,24 @@
         <?php                                                                    
             echo add_main_menu('New Order', 'orders', 'orders', 'fa fa-medkit');
             echo add_main_menu('Repeat Order', 'orders', 'orders', 'fa fa-medkit');
+            echo add_main_menu('Assign Order', 'assign_orders', 'assignorder', 'fa fa-medkit');
             echo add_main_menu('Customer', 'customers', 'customers', 'fa fa-cubes');
+            echo add_main_menu('Employe', 'employes', 'employes', 'fa fa-users');
+            echo'<li class="treeview">
+              <a href="#">
+                <i class="fa fa-folder"></i> <span>Accounts</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                <li>'.add_main_menu('Admin Account', 'admin_account', 'admin_account', 'fa fa-user').'</li>
+                <li>'.add_main_menu('Account Holder', 'account_holder', 'account_holder', 'fa fa-user').'</li>
+              </ul>
+            </li>';
             echo add_main_menu('Settings', 'settings', 'settings', 'fa fa-gears');
            ?>
+
       </ul>
     </section>
     <!-- /.sidebar -->

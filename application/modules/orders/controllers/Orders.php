@@ -128,12 +128,12 @@ class Orders extends MX_Controller
             
             
             $data_order = array(
-		'customer_id' => $customer_id,
-		'price' => $this->input->post('price',TRUE),
-		'advance' => $this->input->post('advance',TRUE),
-		'delivary_date' => $this->input->post('delivary_date',TRUE),
-		'date_time' => $this->input->post('date_time',TRUE),
-	    );
+    		'customer_id' => $customer_id,
+    		'price' => $this->input->post('price',TRUE),
+    		'advance' => $this->input->post('advance',TRUE),
+    		'delivary_date' => $this->input->post('delivary_date',TRUE),
+    		'date_time' => $this->input->post('date_time',TRUE),
+    	    );
             $this->Orders_model->insert($data_order);
             
             $this->session->set_flashdata('message', 'Create Record Success');

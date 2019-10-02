@@ -308,3 +308,13 @@ function convertNumberToWord($num = false) {
     //return  $price->convert( $num );
     return convert_number($num);
 }
+
+function get_name_by_id($value,$table,$dataId,$getid){
+    $ci = & get_instance();
+             $ci->db->select($value);
+    $query = $ci->db->get_where($table ,array($dataId => $getid))->row();
+    $result = empty($query->$value) ? "Not set" : $query->$value;
+    return $result;
+}
+
+

@@ -67,8 +67,10 @@
 			<td><?php echo $customers->name ?></td>
 			<td><?php echo $customers->contact_number ?></td>
 			<td><?php echo $customers->type ?></td>
-			<td width="180px">
+			<td width="200px">
 				<?php 
+                echo anchor(site_url('customers/order_place/'.$customers->customer_id),'order', 'class="btn btn-xs btn-success"'); 
+                echo ' '; 
 				echo anchor(site_url('customers/read/'.$customers->customer_id),'View', 'class="btn btn-xs btn-info"'); 
 				echo ' '; 
 				echo anchor(site_url('customers/update/'.$customers->customer_id),'Update', 'class="btn btn-xs btn-warning"'); 

@@ -111,16 +111,58 @@ class Customers extends MX_Controller
             $this->create();
         } else {
             $data = array(
-		'name' => $this->input->post('name',TRUE),
-		'contact_number' => $this->input->post('contact_number',TRUE),
-		'type' => $this->input->post('cus_type',TRUE),
-		'details' => $details,
-	    );
-
+        		'name' => $this->input->post('name',TRUE),
+        		'contact_number' => $this->input->post('contact_number',TRUE),
+        		'type' => $this->input->post('cus_type',TRUE),
+        		'details' => $details,
+    	    );
             $this->Customers_model->insert($data);
+            $id = $this->db->insert_id();
             $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('customers'));
+            redirect(site_url('customers/order_place/'.$id));
         }
+    }
+
+    public function order_place($id)
+    {
+        
+        spl_autoload_register(function ($name) {
+            $filename = APPPATH.'/modules/customers/libraries/'.$name.'.php';
+            include_once($filename);
+        });
+        $directions = new directions_pant();
+        $p_directions= $directions->direction_json();
+        
+        $table = modules::run('customers/gents_mesurements', $p_directions);
+        // Load gents form first time into the add field......end.......
+        
+        $data = array(
+            'button' => 'Create',
+            'action' => site_url('orders/create_action'),
+            'order_id' => set_value('order_id'),
+            'customer_id' => set_value('customer_id'),
+            'price' => set_value('price'),
+            'advance' => set_value('advance'),
+            'delivary_date' => set_value('delivary_date'),
+            'date_time' => set_value('date_time'),
+                'name' => set_value('name'),
+            'contact_number' => set_value('contact_number'),
+            'type' => set_value('type'),
+            'details' => set_value('details'),
+            'table' => $table,
+                'readonly' => '',
+            );
+
+                                //$this->db->where($this->id, $id);
+            $data['customer'] = $this->db->get_where('customers', array('customer_id' => $id ))->result();
+
+            $data['product_type'] = $this->db->get('product_type')->result();
+
+            $this->load->view('../../header');
+            $this->load->view('../../sidebar');
+            $this->load->view('customers/new_order', $data);
+            $this->load->view('../../footer');   
+        
     }
     
     public function update($id) 
@@ -150,6 +192,8 @@ class Customers extends MX_Controller
             redirect(site_url('customers'));
         }
     }
+
+    
     
     public function update_action() 
     {
